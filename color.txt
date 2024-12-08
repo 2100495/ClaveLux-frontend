@@ -1,6 +1,7 @@
 borderColor:'#ebebeb'
 text gray = #a1a1a1
 text gray2 = #807e7e
+   outlineColor='#d1d1d1'
 #845ec2
 #d65db1
 #ff9671
