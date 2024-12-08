@@ -1,51 +1,71 @@
-import { View, Text,StyleSheet, Image, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
 import Styles from "../css/setting";
-import { Divider } from 'react-native-paper';
-import { PaperProvider } from 'react-native-paper';
-import Ionicons from '@expo/vector-icons/Ionicons';
-export default function Settings(){
+import { Divider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 
-    const details =[
-        {option:'Personal Details', icon:'person-outline'},
-        {option:'Password Security', icon:'build-outline'},
-        {option:'Verification',  icon:'checkmark-circle-outline'},
-        {option:'Language and Region',  icon:'globe-outline'},
-        {option:'Terms of Service and Privacy Policy',  icon:'document-outline'},
-        {option:'About', icon:'information-circle-outline'},
-        {option:'Logout', icon:'log-out-outline'},
-    ]
+export default function Settings() {
+  interface Detail {
+    option: string;
+    icon: string;
+  }
+  const details: Detail[] = [
+    { option: "Personal Details", icon: "person-outline" },
+    { option: "Password Security", icon: "build-outline" },
+    { option: "Verification", icon: "checkmark-circle-outline" },
+    { option: "Language and Region", icon: "globe-outline" },
+    { option: "Terms of Service and Privacy Policy", icon: "document-outline" },
+    { option: "About", icon: "information-circle-outline" },
+  ];
 
-    return(
+  const router = useRouter();
+  function logout() {
+    router.push("../index");
+  }
 
-        <PaperProvider>
-            <View style={Styles.mainContainer}> 
-                <View style={Styles.userProfile} >
-                    <Image
-                    style={Styles.userPhoto}
-                    source={require('../../assets/images/user.jpg')}
-                    />
+  return (
+    <PaperProvider>
+      <View style={Styles.mainContainer}>
+        <View style={Styles.userProfile}>
+          <Image
+            style={Styles.userPhoto}
+            source={require("../../assets/images/user.jpg")}
+          />
 
-                    <View>
-                        <Text style={Styles.fullname}>First Name Last Name</Text>
-                        <Text style={Styles.email}>username@gmail.com</Text>
-                    
-                    </View>
-                </View>
-                <View style={Styles.divider}></View>
-                
-                {/* Other Details */}
+          <View>
+            <Text style={Styles.fullname}>First Name Last Name</Text>
+            <Text style={Styles.email}>username@gmail.com</Text>
+          </View>
+        </View>
+        <View style={Styles.divider}></View>
 
-                
-                {details.map((items,index)=>(
-                <View style={Styles.other_details}>
-                    <Ionicons style={Styles.icon} name={items.icon} size={20} color="green" />
-                    <Text style={Styles.textOption}>{items.option}</Text>
-                </View>
-                ))}
-                
-            </View>
+        {/* Other Details */}
 
-  
-        </PaperProvider>
-    )
+        {details.map((items, index) => (
+          <View style={Styles.other_details}>
+            <Ionicons
+              style={Styles.icon}
+              name={items.icon}
+              size={20}
+              color="green"
+            />
+            <Text style={Styles.textOption}>{items.option}</Text>
+          </View>
+        ))}
+
+        <View style={Styles.other_details}>
+          <Ionicons
+            style={Styles.icon}
+            name="log-out-outline"
+            size={20}
+            color="green"
+          />
+          <Text style={Styles.textOption} onPress={logout}>
+            Logout
+          </Text>
+        </View>
+      </View>
+    </PaperProvider>
+  );
 }

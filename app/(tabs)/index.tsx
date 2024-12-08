@@ -19,7 +19,7 @@ import Approval from "./approval";
 import schedule from "../json/schedule.json";
 
 import Styles from "../css/form";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 export default function Form() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -35,6 +35,8 @@ export default function Form() {
   const containerStyle = { backgroundColor: "white", padding: 20 };
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
+  const router = useRouter();
 
   // Function to handle the date change
   const onChangeDate = (event: any, selectedDate: Date | undefined) => {
@@ -61,6 +63,16 @@ export default function Form() {
   const showTimepicker = () => {
     setShowTime(true);
   };
+  interface Data {
+    id: string;
+    fname: string;
+    lname: string;
+    email: string;
+    hostStatus: string;
+    visitPurpose: string;
+    date: Date;
+    time: Date;
+  }
   const [data, setData] = useState<Data[]>([]);
 
   // Alert
@@ -82,8 +94,16 @@ export default function Form() {
       visitPurpose.trim() === ""
     ) {
       showModal();
-      // createTwoButtonAlert();
+      createTwoButtonAlert();
+    } else {
+      router.push("/(tabs)/approval");
+      setFname("");
+      setLname("");
+      setEmail("");
+      sethostStatus("");
+      setvisitPurpose("");
     }
+
     setData([
       {
         id: id,
@@ -107,10 +127,11 @@ export default function Form() {
   return (
     <PaperProvider>
       {/* Modal */}
-      <Link href={"/approval"}>Go</Link>
+
       <View style={Styles.mainContainer}>
         <View style={Styles.formContainer}>
           <Text style={Styles.headers}>Visitor's Info</Text>
+
           <TextInput
             label="First Name"
             value={fname}
@@ -123,26 +144,30 @@ export default function Form() {
             value={lname}
             mode="outlined"
             outlineColor="#d1d1d1"
+            onChangeText={(lname) => setLname(lname)}
           />
           <Text style={Styles.headers2}>Host Info</Text>
           {/* Email */}
           <TextInput
             label="Email"
+            value={email}
             mode="outlined"
             outlineColor="#d1d1d1"
-            value={email}
+            onChangeText={(email) => setEmail(email)}
           />
           <TextInput
             label="Host status"
             mode="outlined"
             outlineColor="#d1d1d1"
             value={hostStatus}
+            onChangeText={(hostStatus) => sethostStatus(hostStatus)}
           />
           <TextInput
             label="Purpose of Visit"
             mode="outlined"
             outlineColor="#d1d1d1"
             value={visitPurpose}
+            onChangeText={(visitPurpose) => setvisitPurpose(visitPurpose)}
           />
           <Text style={Styles.headers2}>Schedule</Text>
           <TextInput

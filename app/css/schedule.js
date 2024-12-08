@@ -7,13 +7,14 @@ const Styles = StyleSheet.create({
         display:'flex',
         alignItems:'center',
         // backgroundColor:'#f6f6f6'
-        
     },
   
     scheduleCard:{
+        display:'flex',
         backgroundColor:'white',
         borderWidth:1,
         borderColor:'#ebebeb',
+        flexDirection:'row',
         width:'90%',
         marginTop:10,
         paddingHorizontal:15,
@@ -31,32 +32,41 @@ const Styles = StyleSheet.create({
     },
     info1:{
         display:'flex',
+        flexDirection:'row',
+        alignItems:'center',
+        gap:10,
+      
+        width:'50%',
+    },
 
+
+    info2:{
+        display:'flex',
+        // flexDirection:'co',
+        // width:'100%'
+        width:'60%',
+      
+    },
+    date_time:{
+        color:'#a1a1a1',
+        // width:'30%',
+        fontSize:12
+        // width:'40%'
     },
     hostname:{
         fontWeight:'bold',
         backgroundColor:'#845ec2',
         color:'white',
         paddingVertical:3,
-        paddingHorizontal:10,
-        borderRadius:4
-    },
-
-    info2:{
+        textAlign:'center',
+        borderRadius:4,
         display:'flex',
-        flexDirection:'row',
-        // width:'100%',
-        justifyContent:'space-between',
-        marginTop:10
-       
-    },
-    date_time:{
-        color:'#a1a1a1',
-        width:'20%'
+        fontSize:12,
+        width:'50%'
     },
     purpose:{
         color:'#d65db1',
-        width:'80%'
+        width:'60%'
     }
   })
 export default Styles;

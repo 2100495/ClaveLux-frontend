@@ -1,6 +1,10 @@
 import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 
 const Styles = StyleSheet.create({
+
+    scrollview:{
+        backgroundColor:'white'
+    },
     mainContainer:{
         backgroundColor:"white",
         display:'flex',
