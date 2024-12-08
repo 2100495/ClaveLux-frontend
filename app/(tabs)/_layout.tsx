@@ -31,6 +31,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Form',
+          headerShown:true,
           tabBarIcon: ({ color }) => <Ionicons size={15} name="newspaper-outline" color={color} />,
         }}
       />
@@ -38,6 +39,7 @@ export default function TabLayout() {
         name="schedule"
         options={{
           title: 'Schedule',
+          headerShown:true,
           tabBarIcon: ({ color }) => <Ionicons size={15} name="time-outline" color={color} />,
 
         }}
@@ -46,6 +48,7 @@ export default function TabLayout() {
   <Tabs.Screen
         name="notification"
         options={{
+          headerShown:true,
           title: 'Nofication',
           tabBarIcon: ({ color }) => <Ionicons size={15} name="notifications-outline" color={color} />,
         }}
@@ -54,6 +57,7 @@ export default function TabLayout() {
 <Tabs.Screen
         name="settings"
         options={{
+          // headerShown:true,
           title: 'Settings',
           tabBarIcon: ({ color }) => <Ionicons size={15} name="settings-outline" color={color} />,        }}
       />
