@@ -33,7 +33,24 @@ const Styles = StyleSheet.create({
         borderWidth:2,
         borderTopColor:'red'
   
-    }
+    },
+    portal:{
+
+    },
+    modal:{
+        display:'flex',
+        width:'100%',
+        justifyContent:'center',
+        alignItems:'center'
+        
+      
+    },
+    logo:{
+        width:150,
+        height:150,
+        borderRadius:500,
+        marginTop:120
+      },
   })
 
   export default Styles;

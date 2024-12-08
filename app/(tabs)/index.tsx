@@ -5,13 +5,21 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { PaperProvider } from "react-native-paper";
-import { TextInput, Button, HelperText } from "react-native-paper";
+import {
+  TextInput,
+  Button,
+  HelperText,
+  Modal,
+  Portal,
+} from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
+import Approval from "./approval";
 import schedule from "../json/schedule.json";
 
 import Styles from "../css/form";
+import { Link } from "expo-router";
 export default function Form() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -22,6 +30,11 @@ export default function Form() {
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
   const [showTime, setShowTime] = useState(false);
+
+  const [visible, setVisible] = useState(false);
+  const containerStyle = { backgroundColor: "white", padding: 20 };
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   // Function to handle the date change
   const onChangeDate = (event: any, selectedDate: Date | undefined) => {
@@ -68,7 +81,8 @@ export default function Form() {
       hostStatus.trim() === "" ||
       visitPurpose.trim() === ""
     ) {
-      createTwoButtonAlert();
+      showModal();
+      // createTwoButtonAlert();
     }
     setData([
       {
@@ -92,6 +106,8 @@ export default function Form() {
   function addData() {}
   return (
     <PaperProvider>
+      {/* Modal */}
+      <Link href={"/approval"}>Go</Link>
       <View style={Styles.mainContainer}>
         <View style={Styles.formContainer}>
           <Text style={Styles.headers}>Visitor's Info</Text>
@@ -102,16 +118,13 @@ export default function Form() {
             outlineColor="#d1d1d1"
             onChangeText={(fname) => setFname(fname)}
           />
-
           <TextInput
             label="Last Name"
             value={lname}
             mode="outlined"
             outlineColor="#d1d1d1"
           />
-
           <Text style={Styles.headers2}>Host Info</Text>
-
           {/* Email */}
           <TextInput
             label="Email"
@@ -119,23 +132,19 @@ export default function Form() {
             outlineColor="#d1d1d1"
             value={email}
           />
-
           <TextInput
             label="Host status"
             mode="outlined"
             outlineColor="#d1d1d1"
             value={hostStatus}
           />
-
           <TextInput
             label="Purpose of Visit"
             mode="outlined"
             outlineColor="#d1d1d1"
             value={visitPurpose}
           />
-
           <Text style={Styles.headers2}>Schedule</Text>
-
           <TextInput
             label="Date"
             onPress={showDatepicker}
@@ -143,7 +152,6 @@ export default function Form() {
             mode="outlined"
             outlineColor="#d1d1d1"
           />
-
           {showDate && (
             <DateTimePicker
               testID="dateTimePicker"
@@ -154,9 +162,7 @@ export default function Form() {
               onChange={onChangeDate}
             />
           )}
-
           {/* Time */}
-
           <TextInput
             label="Date"
             onPress={showTimepicker}
@@ -175,7 +181,6 @@ export default function Form() {
               onChange={onChange}
             />
           )}
-
           <Button
             style={Styles.submit_button}
             mode="contained"
