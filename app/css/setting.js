@@ -2,7 +2,7 @@ import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 
 const Styles = StyleSheet.create({
     mainContainer:{
-        backgroundColor:"white",
+        backgroundColor:"#fffdfa",
         display:'flex',
         alignItems:'center',
         paddingTop:20,
@@ -28,10 +28,11 @@ const Styles = StyleSheet.create({
     },
     fullname:{
         fontSize:16,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        color:'#752738'
     },
     email:{
-
+        color:'#807e7e'
     },
     divider:{
         borderWidth:.5,

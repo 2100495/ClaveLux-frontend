@@ -50,7 +50,7 @@ export default function Settings() {
               style={Styles.icon}
               name={items.icon}
               size={20}
-              color="green"
+              color="#752738"
             />
             <Text style={Styles.textOption}>{items.option}</Text>
           </View>
@@ -61,7 +61,7 @@ export default function Settings() {
             style={Styles.icon}
             name="log-out-outline"
             size={20}
-            color="green"
+            color="#752738"
           />
           <Text style={Styles.textOption} onPress={logout}>
             Logout

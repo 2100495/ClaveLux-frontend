@@ -3,7 +3,7 @@ import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 const Styles = StyleSheet.create({
     mainContainer:{
         flex:1,
-        backgroundColor:"white",
+        backgroundColor:"#fffdfa",
         display:'flex',
         alignItems:'center',
         // backgroundColor:'#f6f6f6'
@@ -55,7 +55,7 @@ const Styles = StyleSheet.create({
     },
     hostname:{
         fontWeight:'bold',
-        backgroundColor:'#845ec2',
+        backgroundColor:'#752738',
         color:'white',
         paddingVertical:3,
         textAlign:'center',
@@ -65,11 +65,11 @@ const Styles = StyleSheet.create({
         width:'50%'
     },
     purpose:{
-        color:'#d65db1',
+        color:'#752738',
         width:'60%'
     },
     email:{
-        
+        color:'#807e7e'
     }
   })
 export default Styles;

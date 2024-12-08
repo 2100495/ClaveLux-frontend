@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Pressable,
 } from "react-native";
 import { Link } from "expo-router";
 import Styles from "../css/notification";
@@ -38,11 +39,34 @@ export default function History() {
     <ScrollView style={Styles.scrollview}>
       <View style={Styles.mainContainer}>
         {info.map((item: any, index: any) => {
+          const status_color =
+            item.status === "Approved" ? "#008f7a" : "#b31105";
           if (item.status === "Pending") {
             return null;
           }
-          const status_color =
-            item.status === "Approved" ? "#008f7a" : "#b31105";
+          if (item.status === "Denied") {
+            return (
+              <View key={index} style={Styles.notif_container}>
+                <View style={Styles.notif_data}>
+                  <View style={Styles.info1}>
+                    <Text style={Styles.host}>{item.email}</Text>
+                    <Text style={Styles.purpose}>{item.visitPurpose}</Text>
+                    <Text style={Styles.purpose}>
+                      {item.date} // {item.time}
+                    </Text>
+                  </View>
+                  <View style={Styles.info2}>
+                    <Pressable
+                      style={[Styles.status, { backgroundColor: status_color }]}
+                    >
+                      <Text style={Styles.denied}>{item.status}</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            );
+          }
+
           return (
             <View key={index} style={Styles.notif_container}>
               <View style={Styles.notif_data}>

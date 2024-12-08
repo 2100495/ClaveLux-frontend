@@ -1,4 +1,13 @@
-import { Image, StyleSheet, Platform, View, Text, Alert } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Platform,
+  View,
+  Text,
+  Alert,
+  ScrollView,
+} from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -120,101 +129,102 @@ export default function Form() {
     console.log(data);
   }
   const hasErrors = () => {
-    return fname.trim().length === 0;
+    return !email.includes("@");
   };
 
   function addData() {}
   return (
     <PaperProvider>
       {/* Modal */}
+      <ScrollView>
+        <View style={Styles.mainContainer}>
+          <View style={Styles.formContainer}>
+            <Text style={Styles.headers}>Visitor's Info</Text>
 
-      <View style={Styles.mainContainer}>
-        <View style={Styles.formContainer}>
-          <Text style={Styles.headers}>Visitor's Info</Text>
+            <TextInput
+              label="First Name"
+              value={fname}
+              mode="outlined"
+              outlineColor="#d1d1d1"
+              onChangeText={(fname) => setFname(fname)}
+            />
+            <TextInput
+              label="Last Name"
+              value={lname}
+              mode="outlined"
+              outlineColor="#d1d1d1"
+              onChangeText={(lname) => setLname(lname)}
+            />
+            <Text style={Styles.headers2}>Host Info</Text>
+            {/* Email */}
+            <TextInput
+              label="Email"
+              value={email}
+              mode="outlined"
+              outlineColor="#d1d1d1"
+              onChangeText={(email) => setEmail(email)}
+            />
+            <HelperText type="error" visible={hasErrors()}>
+              Email address is invalid!
+            </HelperText>
 
-          <TextInput
-            label="First Name"
-            value={fname}
-            mode="outlined"
-            outlineColor="#d1d1d1"
-            onChangeText={(fname) => setFname(fname)}
-          />
-          <TextInput
-            label="Last Name"
-            value={lname}
-            mode="outlined"
-            outlineColor="#d1d1d1"
-            onChangeText={(lname) => setLname(lname)}
-          />
-          <Text style={Styles.headers2}>Host Info</Text>
-          {/* Email */}
-          <TextInput
-            label="Email"
-            value={email}
-            mode="outlined"
-            outlineColor="#d1d1d1"
-            onChangeText={(email) => setEmail(email)}
-          />
-          <TextInput
-            label="Host status"
-            mode="outlined"
-            outlineColor="#d1d1d1"
-            value={hostStatus}
-            onChangeText={(hostStatus) => sethostStatus(hostStatus)}
-          />
-          <TextInput
-            label="Purpose of Visit"
-            mode="outlined"
-            outlineColor="#d1d1d1"
-            value={visitPurpose}
-            onChangeText={(visitPurpose) => setvisitPurpose(visitPurpose)}
-          />
-          <Text style={Styles.headers2}>Schedule</Text>
-          <TextInput
-            label="Date"
-            onPress={showDatepicker}
-            value={date.toLocaleDateString()}
-            mode="outlined"
-            outlineColor="#d1d1d1"
-          />
-          {showDate && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode="date" // Can be 'date', 'time', or 'datetime'
-              is24Hour={true} // Use 24-hour format
-              display="default" // 'default' | 'spinner' | 'calendar' | 'clock'
-              onChange={onChangeDate}
+            <TextInput
+              label="Host status"
+              mode="outlined"
+              outlineColor="#d1d1d1"
+              value={hostStatus}
+              onChangeText={(hostStatus) => sethostStatus(hostStatus)}
             />
-          )}
-          {/* Time */}
-          <TextInput
-            label="Date"
-            onPress={showTimepicker}
-            value={time.toLocaleTimeString()}
-            mode="outlined"
-            outlineColor="#d1d1d1"
-          />
-          {/* Conditionally render the DateTimePicker */}
-          {showTime && (
-            <DateTimePicker
-              testID="timePicker"
-              value={time}
-              mode="time" // Set mode to 'time' for time picker
-              is24Hour={false} // Use 24-hour format (true for 24-hour, false for 12-hour)
-              display="default" // Can be 'default', 'spinner', 'clock'
-              onChange={onChange}
+            <TextInput
+              label="Purpose of Visit"
+              mode="outlined"
+              outlineColor="#d1d1d1"
+              value={visitPurpose}
+              onChangeText={(visitPurpose) => setvisitPurpose(visitPurpose)}
             />
-          )}
-          <Button
-            style={Styles.submit_button}
-            mode="contained"
-            onPress={submit}
-          >
-            Submit
-          </Button>
+            <Text style={Styles.headers2}>Schedule</Text>
+            <TextInput
+              label="Date"
+              onPress={showDatepicker}
+              value={date.toLocaleDateString()}
+              mode="outlined"
+              outlineColor="#d1d1d1"
+            />
+            {showDate && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode="date" // Can be 'date', 'time', or 'datetime'
+                is24Hour={true} // Use 24-hour format
+                display="default" // 'default' | 'spinner' | 'calendar' | 'clock'
+                onChange={onChangeDate}
+              />
+            )}
+            {/* Time */}
+            <TextInput
+              label="Time"
+              onPress={showTimepicker}
+              value={time.toLocaleTimeString()}
+              mode="outlined"
+              outlineColor="#d1d1d1"
+            />
+            {/* Conditionally render the DateTimePicker */}
+            {showTime && (
+              <DateTimePicker
+                testID="timePicker"
+                value={time}
+                mode="time" // Set mode to 'time' for time picker
+                is24Hour={false} // Use 24-hour format (true for 24-hour, false for 12-hour)
+                display="default" // Can be 'default', 'spinner', 'clock'
+                onChange={onChange}
+              />
+            )}
+            <Pressable style={Styles.submit_button} onPress={submit}>
+              <Text style={Styles.submit}>Submit</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </PaperProvider>
   );
 }
