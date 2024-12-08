@@ -1,0 +1,13 @@
+[
+    { "fname": "John", "lname": "Doe", "email": "john.doe@example.com", "hostStatus": "student", "visitPurpose": "meeting with faculty", "date": "2024-12-08", "time": "10:30 AM", "status": "Approved" },
+    { "fname": "Jane", "lname": "Smith", "email": "jane.smith@example.com", "hostStatus": "faculty", "visitPurpose": "attending conference", "date": "2024-12-09", "time": "2:15 PM", "status": "Pending" },
+    { "fname": "Alice", "lname": "Johnson", "email": "alice.johnson@example.com", "hostStatus": "student", "visitPurpose": "attending seminar", "date": "2024-12-10", "time": "9:00 AM", "status": "Denied" },
+    { "fname": "Bob", "lname": "Brown", "email": "bob.brown@example.com", "hostStatus": "others", "position": "cashier", "visitPurpose": "visiting for job interview", "date": "2024-12-11", "time": "1:45 PM", "status": "Pending" },
+    { "fname": "Charlie", "lname": "Davis", "email": "charlie.davis@example.com", "hostStatus": "faculty", "visitPurpose": "guest speaker for event", "date": "2024-12-12", "time": "11:30 AM", "status": "Approved" },
+    { "fname": "David", "lname": "Miller", "email": "david.miller@example.com", "hostStatus": "student", "visitPurpose": "visiting the career center", "date": "2024-12-13", "time": "3:00 PM", "status": "Denied" },
+    { "fname": "Eve", "lname": "Wilson", "email": "eve.wilson@example.com", "hostStatus": "others", "position": "security guard", "visitPurpose": "attending staff meeting", "date": "2024-12-14", "time": "8:30 AM", "status": "Approved" },
+    { "fname": "Frank", "lname": "Moore", "email": "frank.moore@example.com", "hostStatus": "faculty", "visitPurpose": "collaborating on research", "date": "2024-12-15", "time": "4:00 PM", "status": "Pending" },
+    { "fname": "Grace", "lname": "Taylor", "email": "grace.taylor@example.com", "hostStatus": "others", "position": "janitor", "visitPurpose": "maintenance work", "date": "2024-12-16", "time": "6:00 AM", "status": "Denied" },
+    { "fname": "Hannah", "lname": "Anderson", "email": "hannah.anderson@example.com", "hostStatus": "student", "visitPurpose": "attending orientation session", "date": "2024-12-17", "time": "12:00 PM", "status": "Approved" }
+  ]
+  
