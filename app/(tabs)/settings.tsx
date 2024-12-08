@@ -4,6 +4,7 @@ import { Divider } from "react-native-paper";
 import { PaperProvider } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
+import * as Updates from "expo-updates";
 
 export default function Settings() {
   interface Detail {
@@ -21,7 +22,8 @@ export default function Settings() {
 
   const router = useRouter();
   function logout() {
-    router.push("../index");
+    console.warn("ds");
+    Updates.reloadAsync();
   }
 
   return (
@@ -43,7 +45,7 @@ export default function Settings() {
         {/* Other Details */}
 
         {details.map((items, index) => (
-          <View style={Styles.other_details}>
+          <View key={index} style={Styles.other_details}>
             <Ionicons
               style={Styles.icon}
               name={items.icon}

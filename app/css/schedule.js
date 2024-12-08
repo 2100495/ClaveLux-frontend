@@ -67,6 +67,9 @@ const Styles = StyleSheet.create({
     purpose:{
         color:'#d65db1',
         width:'60%'
+    },
+    email:{
+        
     }
   })
 export default Styles;
