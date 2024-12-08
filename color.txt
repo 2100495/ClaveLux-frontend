@@ -1,0 +1,19 @@
+borderColor:'#ebebeb'
+text gray = #a1a1a1
+text gray2 = #807e7e
+#845ec2
+#d65db1
+#ff9671
+#ff6f91
+#ffc75f
+#f9f871
+
+        borderRadius:5,
+        shadowColor: 'rgba(99, 99, 99, 0.2)', // Shadow color
+        shadowOffset: { width: 0, height: 2 }, // Offset (0px 2px)
+        shadowOpacity: 0.2, // Opacity (0.2)
+        shadowRadius: 8, // Blur radius (8px)
+        
+        // Android shadow
+        elevation: 5, // Elevation for Android (more prominent shadow)
+        
