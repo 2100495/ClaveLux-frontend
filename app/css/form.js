@@ -6,7 +6,7 @@ const Styles = StyleSheet.create({
         display:'flex',
         flex:1,
         alignItems:'center',
-        backgroundColor:"white"
+        backgroundColor:'#fffdfa',
     },
     formContainer:{
       width:'90%',
@@ -16,16 +16,26 @@ const Styles = StyleSheet.create({
     headers:{
         fontSize:18,
         fontWeight:'bold',
-        color:'#845ec2'
+        color:'#752738'
     },
     headers2:{
         fontSize:18,
         fontWeight:'bold',
         marginTop:20,
-         color:'#845ec2'
+         color:'#752738'
     },
     submit_button:{
-        marginTop:10
+        marginTop:10,
+        backgroundColor:'#752738',
+        textAlign:'center',
+        paddingVertical:15,
+        borderRadius:10
+    },
+    submit:{
+        textAlign:'center',
+        color:'white',
+        fontWeight:'bold',
+        
     },
     picker:{
         // borderWidth:1,

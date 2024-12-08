@@ -3,10 +3,10 @@ import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 const Styles = StyleSheet.create({
 
     scrollview:{
-        backgroundColor:'white'
+        backgroundColor:'#fffdfa'
     },
     mainContainer:{
-        backgroundColor:"white",
+        backgroundColor:"#fffdfa",
         display:'flex',
         alignItems:'center',
         paddingTop:20,
@@ -41,7 +41,7 @@ const Styles = StyleSheet.create({
         width:'80%'
     },
     host:{
-        color:'#845ec2',
+        color:'#752738',
         fontWeight:'bold'
     },
     purpose:{
@@ -64,6 +64,13 @@ const Styles = StyleSheet.create({
         borderRadius:5,
         fontSize:12
         // borderWidth:1
+    },
+    denied:{
+        color:"white",
+        textAlign:'center',
+           fontWeight:'bold',
+
+        fontSize:12
     }
 
 
