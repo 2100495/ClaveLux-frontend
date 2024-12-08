@@ -83,23 +83,21 @@ export default function Schedule() {
   ];
 
   return (
-    <PaperProvider>
-      <ScrollView>
-        <View style={Styles.mainContainer}>
-          {info.map((item: any, index: any) => (
-            <View style={Styles.scheduleCard}>
-              <View style={Styles.info2}>
-                <Text style={Styles.purpose}>{item.visitPurpose}</Text>
-                <Text style={Styles.email}>{item.email}</Text>
-              </View>
-              <View style={Styles.info1}>
-                <Text style={Styles.hostname}>{item.date}</Text>
-                <Text style={Styles.date_time}>{item.time}</Text>
-              </View>
+    <ScrollView>
+      <View style={Styles.mainContainer}>
+        {info.map((item: any, index: any) => (
+          <View key={index} style={Styles.scheduleCard}>
+            <View style={Styles.info2}>
+              <Text style={Styles.purpose}>{item.visitPurpose}</Text>
+              <Text style={Styles.email}>{item.email}</Text>
             </View>
-          ))}
-        </View>
-      </ScrollView>
-    </PaperProvider>
+            <View style={Styles.info1}>
+              <Text style={Styles.hostname}>{item.date}</Text>
+              <Text style={Styles.date_time}>{item.time}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }

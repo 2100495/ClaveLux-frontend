@@ -44,7 +44,7 @@ export default function History() {
           const status_color =
             item.status === "Approved" ? "#008f7a" : "#b31105";
           return (
-            <View style={Styles.notif_container}>
+            <View key={index} style={Styles.notif_container}>
               <View style={Styles.notif_data}>
                 <View style={Styles.info1}>
                   <Text style={Styles.host}>{item.email}</Text>
