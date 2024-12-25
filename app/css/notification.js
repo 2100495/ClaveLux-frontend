@@ -65,6 +65,9 @@ const Styles = StyleSheet.create({
         fontSize:12
         // borderWidth:1
     },
+    status_color1:{
+        // backgroundColor:'#005aad'
+    },
     denied:{
         color:"white",
         textAlign:'center',
