@@ -18,8 +18,12 @@ import { DataTable, Card, Button, Avatar } from "react-native-paper";
 import { useState, useEffect } from "react";
 import { PaperProvider } from "react-native-paper";
 
+import AxiosInstance from "../AxiosInstance";
+import axios from "axios";
 //css
 import Styles from "../css/schedule";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function Schedule() {
   const [page, setPage] = useState<number>(0);
   const [numberOfItemsPerPageList] = useState([8, 16, 24]);
@@ -27,73 +31,38 @@ export default function Schedule() {
     numberOfItemsPerPageList[0]
   );
   const info = require("../json/notification.json");
+  const [data, setData] = useState([]);
 
-  // const [items] = useState([
-  //   {
-  //     key: 1,
-  //     host: 'Cupcake',
-  //     purpose:'Give lunch',
-  //     date: "11-12-2024",
-  //     time:'12:00 pm'
+  const [visitorID, setvisitorID] = useState();
+  const getFname = async () => {
+    const visitor: any = await AsyncStorage.getItem("visitor_id");
+    setvisitorID(visitor);
+  };
 
-  //   },
-  //   {
-  //     key: 2,
-  //     host: 'Eclair',
-  //     purpose:'Give lunch',
-  //     date: "11-12-2024",
-  //     time:'12:00 pm'
+  const fetchData = async () => {
+    AxiosInstance();
+    const response = await axios.get("/api/get_schedule/" + visitorID);
+    console.log("d", visitorID);
+    setData(response.data);
+  };
 
-  //   },
-  //   {
-  //     key: 3,
-  //     host: 'Frozen yogurt',
-  //     purpose:'Give lunch',
-  //     date: "11-12-2024",
-  //     time:'12:00 pm'
-  //   },
-  //   {
-  //     key: 4,
-  //     host: 'Gingerbread',
-  //     purpose:'Give lunch',
-  //     date: "11-12-2024",
-  //     time:'12:00 pm'
-
-  //   },
-  //  ]);
-
-  //  const from = page * itemsPerPage;
-  //  const to = Math.min((page + 1) * itemsPerPage, items.length);
-
-  //  useEffect(() => {
-  //   setPage(0);
-  // }, [itemsPerPage]);
-
-  const scheduleData = [
-    {
-      hostname: "Server1",
-      date: "2024-12-08T14:30:00Z",
-      purpose: "Maintenance",
-    },
-    {
-      hostname: "Server2",
-      date: "2024-12-09T10:00:00Z",
-      purpose: "Update",
-    },
-  ];
-
+  useEffect(() => {
+    AxiosInstance();
+    getFname();
+    fetchData();
+  }, [visitorID]);
   return (
-    <ScrollView>
+    <ScrollView style={{ height: "100%" }}>
       <View style={Styles.mainContainer}>
-        {info.map((item: any, index: any) => (
+        {data.map((item: any, index: any) => (
           <View key={index} style={Styles.scheduleCard}>
             <View style={Styles.info2}>
-              <Text style={Styles.purpose}>{item.visitPurpose}</Text>
+              <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
               <Text style={Styles.email}>{item.email}</Text>
             </View>
             <View style={Styles.info1}>
-              <Text style={Styles.hostname}>{item.date}</Text>
-              <Text style={Styles.date_time}>{item.time}</Text>
+              <Text style={Styles.hostname}>{item.visit_date}</Text>
+              <Text style={Styles.date_time}>{item.visit_time}</Text>
             </View>
           </View>
         ))}

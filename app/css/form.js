@@ -1,6 +1,22 @@
 import { Image, StyleSheet, Platform, View, Text } from 'react-native';
 
 const Styles = StyleSheet.create({
+    inputText:{
+        backgroundColor:'white'
+    },
+    text1:{
+        fontWeight:'400'
+    },
+    myPicker:{
+        height:52,
+        borderRadius:5,
+        marginTop:5,
+        borderColor:'#dbdbdb',
+        color:'#7a7a7a',
+        paddingHorizontal:10,
+        fontSize:16,
+        backgroundColor:'white'
+    },
     mainContainer:{
         width:'100%',
         display:'flex',

@@ -4,8 +4,9 @@ const Styles = StyleSheet.create({
     mainContainer:{
         flex:1,
         backgroundColor:"#fffdfa",
-        display:'flex',
+        height:"100%",
         alignItems:'center',
+        
         // backgroundColor:'#f6f6f6'
     },
   
@@ -62,7 +63,8 @@ const Styles = StyleSheet.create({
         borderRadius:4,
         display:'flex',
         fontSize:12,
-        width:'50%'
+        width:'50%',
+        justifyContent:'center'
     },
     purpose:{
         color:'#752738',

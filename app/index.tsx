@@ -2,13 +2,14 @@ import { registerRootComponent } from "expo";
 import { Link, useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 import { useState, useEffect } from "react";
-import { Image, StyleSheet, Platform, Button } from "react-native";
+import { Image, StyleSheet, Platform, Button, Alert } from "react-native";
 
 import { TextInput } from "react-native-paper";
 
 import Styles from "./css/login";
 import AxiosInstance from "./AxiosInstance";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ export default function Login() {
   useEffect(() => {
     AxiosInstance();
     getToken();
-  });
+  }, []);
 
   const getToken = async () => {
     try {
@@ -48,7 +49,18 @@ export default function Login() {
     }
   };
 
+  // function ifEmpty() {
+
+  // }
+  const failed_to_login = () =>
+    Alert.alert("Failed to Authenticate", "Invalid emal or password.", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
   async function login_for_visitor() {
+    if (password.trim() == "" || password.trim() == "") {
+      failed_to_login();
+    }
     AxiosInstance();
     const data = {
       email: email,
@@ -58,16 +70,40 @@ export default function Login() {
     try {
       AxiosInstance();
       const response = await axios.post("/api/login", data);
-      console.log(response.status);
+
       if (response.status == 200) {
         router.push("/(tabs)");
+        const data = response.data;
+        const keys = [
+          "contact_id",
+          "visitor_id",
+          "lname",
+          "fname",
+          "username",
+          "email",
+          "position_id",
+        ];
+        await AsyncStorage.multiRemove(keys);
+        console.log(data);
+        await AsyncStorage.setItem("visitor_id", String(data.data.visitor_id));
+        await AsyncStorage.setItem("lname", data.data.lname);
+        await AsyncStorage.setItem("fname", data.data.fname);
+        await AsyncStorage.setItem("username", data.data.username);
+        await AsyncStorage.setItem("email", data.data.email);
+        await AsyncStorage.setItem(
+          "position_id",
+          String(data.data.position_id)
+        );
       }
     } catch (e) {
-      console.error(e);
+      failed_to_login();
     }
   }
 
   async function login_for_contact() {
+    if (password.trim() == "" || password.trim() == "") {
+      failed_to_login();
+    }
     AxiosInstance();
     const data = {
       email: email,
@@ -77,12 +113,32 @@ export default function Login() {
     try {
       AxiosInstance();
       const response = await axios.post("/api/contact_login", data);
-      console.log(response.status);
+      console.log(response.data);
       if (response.status == 200) {
         router.push("/(tabs)");
+        const data = response.data;
+        const keys = [
+          "contact_id",
+          "visitor_id",
+          "lname",
+          "fname",
+          "username",
+          "email",
+          "position_id",
+        ];
+        await AsyncStorage.multiRemove(keys);
+        await AsyncStorage.setItem("contact_id", String(data.data.contact_id));
+        await AsyncStorage.setItem("lname", data.data.lname);
+        await AsyncStorage.setItem("fname", data.data.fname);
+        await AsyncStorage.setItem("username", data.data.username);
+        await AsyncStorage.setItem("email", data.data.email);
+        await AsyncStorage.setItem(
+          "position_id",
+          String(data.data.position_id)
+        );
       }
     } catch (e) {
-      console.error(e);
+      failed_to_login();
     }
   }
   return (

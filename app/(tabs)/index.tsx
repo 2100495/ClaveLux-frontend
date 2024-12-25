@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 
+import { useEffect } from "react";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -29,10 +30,37 @@ import schedule from "../json/schedule.json";
 
 import Styles from "../css/form";
 import { Link, useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { get_visitor_id } from "../userdata";
+import AxiosInstance from "../AxiosInstance";
+import axios from "axios";
+
 export default function Form() {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
+  // Get user Data
+  const [visitor_id, setvisitor_id] = useState<number | null>(null);
+  const get_visitor_id = async () => {
+    const visitor_id: any = await AsyncStorage.getItem("visitor_id");
+    setvisitor_id(visitor_id);
+  };
+
+  const [fname, setFname] = useState<string>("");
+  const getFname = async () => {
+    const fname: any = await AsyncStorage.getItem("fname");
+    setFname(fname);
+  };
+
+  const [lname, setLname] = useState<string>("");
+  const getLname = async () => {
+    const lname: any = await AsyncStorage.getItem("lname");
+    setLname(lname);
+  };
+
+  const [email, setEmail] = useState<string>("");
+  // const getEmail = async () => {
+  //   const email: any = await AsyncStorage.getItem("email");
+  //   setEmail(email);
+  // };
+  const [position_id, setposition_id] = useState(2);
   const [hostStatus, sethostStatus] = useState("");
   const [visitPurpose, setvisitPurpose] = useState("");
   const [time, setTime] = useState(new Date());
@@ -92,39 +120,47 @@ export default function Form() {
       [{ text: "OK", onPress: () => console.log("OK Pressed") }]
     );
 
+  const fail_email = () =>
+    Alert.alert(
+      "Failed to Submit",
+      "Contact does not exist. Please check if contact email is correct",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+    );
+
   // Submit
-  function submit() {
+  async function submit() {
     var id = date.toDateString() + time.toDateString();
-    if (
-      fname.trim() === "" ||
-      lname.trim() === "" ||
-      email.trim() === "" ||
-      hostStatus.trim() === "" ||
-      visitPurpose.trim() === ""
-    ) {
+
+    if (email.trim() === "" || visitPurpose.trim() === "") {
       showModal();
       createTwoButtonAlert();
     } else {
-      router.push("/(tabs)/approval");
-      setFname("");
-      setLname("");
-      setEmail("");
-      sethostStatus("");
-      setvisitPurpose("");
-    }
+      try {
+        console.log(email);
+        AxiosInstance();
 
-    setData([
-      {
-        id: id,
-        fname: fname,
-        lname: lname,
-        email: email,
-        hostStatus: hostStatus,
-        visitPurpose: visitPurpose,
-        date: date,
-        time: time,
-      },
-    ]);
+        const response = await axios.post("/api/schedule", {
+          visitor_id: visitor_id,
+          position_id: position_id,
+          schedule_status_id: 1,
+          email: email,
+          visitor_purpose: visitPurpose,
+
+          visit_date: date,
+          visit_time: time,
+        });
+        if (response.status == 401) {
+          fail_email();
+        }
+        router.push("/(tabs)/approval");
+        // setFname("");
+        // setLname("");
+        setEmail("");
+        setvisitPurpose("");
+      } catch (e) {
+        fail_email();
+      }
+    }
 
     console.log(data);
   }
@@ -132,7 +168,12 @@ export default function Form() {
     return !email.includes("@");
   };
 
-  function addData() {}
+  useEffect(() => {
+    get_visitor_id();
+    // getEmail();
+    getFname();
+    getLname();
+  });
   return (
     <PaperProvider>
       {/* Modal */}
@@ -146,14 +187,16 @@ export default function Form() {
               value={fname}
               mode="outlined"
               outlineColor="#d1d1d1"
-              onChangeText={(fname) => setFname(fname)}
+              onChangeText={setFname}
+              disabled
             />
             <TextInput
               label="Last Name"
               value={lname}
               mode="outlined"
               outlineColor="#d1d1d1"
-              onChangeText={(lname) => setLname(lname)}
+              onChangeText={setLname}
+              disabled
             />
             <Text style={Styles.headers2}>Host Info</Text>
             {/* Email */}
@@ -162,25 +205,40 @@ export default function Form() {
               value={email}
               mode="outlined"
               outlineColor="#d1d1d1"
-              onChangeText={(email) => setEmail(email)}
+              onChangeText={setEmail}
+              style={Styles.inputText}
             />
             <HelperText type="error" visible={hasErrors()}>
               Email address is invalid!
             </HelperText>
 
-            <TextInput
-              label="Host status"
+            {/* <TextInput
+              label="Point of Contact Status"
               mode="outlined"
               outlineColor="#d1d1d1"
               value={hostStatus}
               onChangeText={(hostStatus) => sethostStatus(hostStatus)}
-            />
+              style={Styles.inputText}
+            /> */}
+            <Text style={Styles.headers}>Point of Contact Status</Text>
+            <Picker
+              selectedValue={position_id}
+              onValueChange={(itemValue, itemIndex) =>
+                setposition_id(itemValue)
+              }
+              style={Styles.myPicker}
+            >
+              <Picker.Item label="Student" value="2" />
+              <Picker.Item label="Faculty/Admin" value="3" />
+              <Picker.Item label="Office" value="4" />
+            </Picker>
             <TextInput
               label="Purpose of Visit"
               mode="outlined"
               outlineColor="#d1d1d1"
               value={visitPurpose}
-              onChangeText={(visitPurpose) => setvisitPurpose(visitPurpose)}
+              onChangeText={setvisitPurpose}
+              style={Styles.inputText}
             />
             <Text style={Styles.headers2}>Schedule</Text>
             <TextInput
@@ -189,6 +247,7 @@ export default function Form() {
               value={date.toLocaleDateString()}
               mode="outlined"
               outlineColor="#d1d1d1"
+              style={Styles.inputText}
             />
             {showDate && (
               <DateTimePicker
@@ -198,6 +257,7 @@ export default function Form() {
                 is24Hour={true} // Use 24-hour format
                 display="default" // 'default' | 'spinner' | 'calendar' | 'clock'
                 onChange={onChangeDate}
+                style={Styles.inputText}
               />
             )}
             {/* Time */}

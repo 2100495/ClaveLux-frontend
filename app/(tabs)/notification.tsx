@@ -9,62 +9,49 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import Styles from "../css/notification";
+import AxiosInstance from "../AxiosInstance";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function History() {
   const notif = "Your schedule has been";
 
   const info = require("../json/notification.json");
+  const [data, setData] = useState([]);
 
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      status: "Approved",
-      host: "Hostname",
-      purpose: "Purpose",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      status: "Approved",
-      host: "Hostname",
-      purpose: "Purpose",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      status: "Denied",
-      host: "Hostname",
-      purpose: "Purpose",
-    },
-  ];
+  const [visitorID, setvisitorID] = useState();
+  const getFname = async () => {
+    const visitor: any = await AsyncStorage.getItem("visitor_id");
+    setvisitorID(visitor);
+  };
 
+  const fetchData = async () => {
+    AxiosInstance();
+    const response = await axios.get("/api/get_schedule/" + visitorID);
+    setData(response.data);
+  };
+
+  useEffect(() => {
+    AxiosInstance();
+    getFname();
+    fetchData();
+  }, [visitorID]);
   return (
     <ScrollView style={Styles.scrollview}>
       <View style={Styles.mainContainer}>
-        {info.map((item: any, index: any) => {
-          const status_color =
-            item.status === "Approved" ? "#008f7a" : "#b31105";
-          if (item.status === "Pending") {
-            return null;
-          }
-          if (item.status === "Denied") {
-            return (
-              <View key={index} style={Styles.notif_container}>
-                <View style={Styles.notif_data}>
-                  <View style={Styles.info1}>
-                    <Text style={Styles.host}>{item.email}</Text>
-                    <Text style={Styles.purpose}>{item.visitPurpose}</Text>
-                    <Text style={Styles.purpose}>
-                      {item.date} // {item.time}
-                    </Text>
-                  </View>
-                  <View style={Styles.info2}>
-                    <Pressable
-                      style={[Styles.status, { backgroundColor: status_color }]}
-                    >
-                      <Text style={Styles.denied}>{item.status}</Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            );
+        {data.map((item: any, index: any) => {
+          // Set the background color based on status
+          let statusColor: string;
+
+          if (item.schedule_status === "Approved") {
+            statusColor = "#008f7a"; // Green for approved
+          } else if (item.schedule_status === "Denied") {
+            statusColor = "#b31105"; // Red for denied
+          } else if (item.schedule_status === "Pending") {
+            statusColor = "#005aad"; // Blue for pending
+          } else {
+            statusColor = "green"; // Default color for unknown statuses
           }
 
           return (
@@ -72,18 +59,17 @@ export default function History() {
               <View style={Styles.notif_data}>
                 <View style={Styles.info1}>
                   <Text style={Styles.host}>{item.email}</Text>
-                  <Text style={Styles.purpose}>{item.visitPurpose}</Text>
+                  <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
                   <Text style={Styles.purpose}>
-                    {item.date} // {item.time}
+                    {item.visit_date} // {item.visit_time}
                   </Text>
                 </View>
                 <View style={Styles.info2}>
-                  <Link
-                    href={"/(tabs)/approved"}
-                    style={[Styles.status, { backgroundColor: status_color }]}
+                  <Pressable
+                    style={[Styles.status, { backgroundColor: statusColor }]}
                   >
-                    {item.status}
-                  </Link>
+                    <Text style={Styles.denied}>{item.schedule_status}</Text>
+                  </Pressable>
                 </View>
               </View>
             </View>

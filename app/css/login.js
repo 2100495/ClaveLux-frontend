@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
       flexDirection:'row',
       justifyContent:'center',
       gap:10,
-      marginTop:20
+      marginTop:50
     },
     toggle1:{
       width:'50%',
