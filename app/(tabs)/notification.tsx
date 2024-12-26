@@ -59,6 +59,9 @@ export default function History() {
               <View style={Styles.notif_data}>
                 <View style={Styles.info1}>
                   <Text style={Styles.host}>{item.email}</Text>
+                  <Text style={Styles.purpose}>
+                    {item.fname} {item.lname}
+                  </Text>
                   <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
                   <Text style={Styles.purpose}>
                     {item.visit_date} // {item.visit_time}

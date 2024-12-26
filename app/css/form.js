@@ -15,7 +15,8 @@ const Styles = StyleSheet.create({
         color:'#7a7a7a',
         paddingHorizontal:10,
         fontSize:16,
-        backgroundColor:'white'
+        backgroundColor:'#e3e3e3',
+        borderWidth:1
     },
     mainContainer:{
         width:'100%',
@@ -23,6 +24,7 @@ const Styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         backgroundColor:'#fffdfa',
+        paddingBottom:20,
     },
     formContainer:{
       width:'90%',

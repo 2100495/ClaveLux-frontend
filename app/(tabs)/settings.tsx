@@ -23,7 +23,8 @@ export default function Settings() {
   const router = useRouter();
   function logout() {
     console.warn("ds");
-    Updates.reloadAsync();
+    router.push("/logout");
+    // Updates.reloadAsync();
   }
 
   return (
