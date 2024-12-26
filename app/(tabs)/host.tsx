@@ -27,7 +27,7 @@ export default function Form() {
   const fetchData = async () => {
     AxiosInstance();
     const response = await axios.get("/api/get_schedule_contact/" + contactID);
-    console.log("d", contactID);
+    console.log("Contact Id", contactID);
     setData(response.data);
   };
 
@@ -62,6 +62,10 @@ export default function Form() {
       AxiosInstance();
       const response = await axios.post("/api/accept_schedule", data);
       console.log(response);
+      Alert.alert("Success", "Schedule is updated", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+      fetchData();
     } catch (e) {
       console.error(e);
     }
@@ -79,6 +83,10 @@ export default function Form() {
       AxiosInstance();
       const response = await axios.post("/api/deny_schedule/", data);
       console.log(response);
+      Alert.alert("Success", "Schedule is updated", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+      fetchData();
     } catch (e) {
       console.error(e);
     }
@@ -115,10 +123,14 @@ export default function Form() {
   useEffect(() => {
     AxiosInstance();
     getFname();
-    fetchData();
+
     // fetch_accepted();
     // fetch_rejected();
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [contactID]);
 
   return (
     <ScrollView>

@@ -117,20 +117,12 @@ export default function Login() {
       if (response.status == 200) {
         router.push("/(tabs)");
         const data = response.data;
-        const keys = [
-          "contact_id",
-          "visitor_id",
-          "lname",
-          "fname",
-          "username",
-          "email",
-          "position_id",
-        ];
+        const keys = ["visitor_id", "lname", "fname", "email", "position_id"];
+        console.log(data.data.visitor);
         await AsyncStorage.multiRemove(keys);
         await AsyncStorage.setItem("contact_id", String(data.data.contact_id));
         await AsyncStorage.setItem("lname", data.data.lname);
         await AsyncStorage.setItem("fname", data.data.fname);
-        await AsyncStorage.setItem("username", data.data.username);
         await AsyncStorage.setItem("email", data.data.email);
         await AsyncStorage.setItem(
           "position_id",
@@ -139,6 +131,7 @@ export default function Login() {
       }
     } catch (e) {
       failed_to_login();
+      console.error(e);
     }
   }
   return (

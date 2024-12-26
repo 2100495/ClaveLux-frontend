@@ -7,6 +7,7 @@ const Styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         backgroundColor:'#fffdfa',
+        paddingBottom:20
     },
     notif_container:{
         marginTop:20,

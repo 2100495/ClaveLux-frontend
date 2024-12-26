@@ -42,7 +42,8 @@ export default function Schedule() {
   const fetchData = async () => {
     AxiosInstance();
     const response = await axios.get("/api/get_schedule/" + visitorID);
-    console.log("d", visitorID);
+    console.log("id", visitorID);
+    console.log("data", response.data);
     setData(response.data);
   };
 
@@ -59,6 +60,9 @@ export default function Schedule() {
             <View style={Styles.info2}>
               <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
               <Text style={Styles.email}>{item.email}</Text>
+              <Text style={Styles.email}>
+                {item.fname} {item.lname}
+              </Text>
             </View>
             <View style={Styles.info1}>
               <Text style={Styles.hostname}>{item.visit_date}</Text>

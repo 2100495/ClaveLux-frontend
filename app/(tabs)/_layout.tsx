@@ -9,18 +9,49 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const [position, setPosition] = useState();
-  const getPosition = async () => {
-    const position: any = await AsyncStorage.getItem("position_id");
-    setPosition(position);
-  };
+  const router = useRouter();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getPosition();
+    }, 1000); // 2000 ms = 2 seconds
+
+    // Cleanup the timeout if the component is unmounted or dependencies change
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-    getPosition();
-  }, [position]);
+    // checkPosition();
+  }, []);
+
+  const colorScheme = useColorScheme();
+  const [position, setPosition] = useState("");
+  // const getPosition = async () => {
+  //   const position: any = await AsyncStorage.getItem("position_id");
+  //   setPosition(position);
+  // };
+
+  const checkPosition = async () => {
+    if (position !== "5") {
+      router.push("/(tabs)/host");
+    } else {
+      router.push("/(tabs)");
+    }
+  };
+  const getPosition = async () => {
+    try {
+      const position = await AsyncStorage.getItem("position_id");
+      if (position !== null) {
+        setPosition(position); // Update state with the value from AsyncStorage
+        console.log("position1", position);
+      }
+    } catch (error) {
+      console.error("Error retrieving position from AsyncStorage", error);
+    }
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -79,7 +110,7 @@ export default function TabLayout() {
           headerShown: true,
           title: "Host",
           tabBarIcon: ({ color }) => (
-            <Ionicons size={15} name="settings-outline" color={color} />
+            <Ionicons size={15} name="newspaper-outline" color={color} />
           ),
           href: position === "5" ? null : "/host",
         }}
