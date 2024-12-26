@@ -7,6 +7,7 @@ const Styles = StyleSheet.create({
         width:'100%',
         display:'flex',
         
+  
        
     },
     inputText:{
