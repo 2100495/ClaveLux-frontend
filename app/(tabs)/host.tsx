@@ -133,125 +133,127 @@ export default function Form() {
   }, [contactID]);
 
   return (
-    <ScrollView>
-      <View style={Styles.MainContainer}>
-        <View style={Styles.buttonContainer}>
-          <Pressable
-            style={[Styles.buttons, { backgroundColor: backgroundColor1 }]}
-            onPress={() => changeButton(1)}
-          >
-            <Text style={Styles.text}>Queue</Text>
-          </Pressable>
-          <Pressable
-            style={[Styles.buttons, { backgroundColor: backgroundColor2 }]}
-            onPress={() => changeButton(2)}
-          >
-            <Text style={Styles.text}>Accepted</Text>
-          </Pressable>
-          <Pressable
-            style={[Styles.buttons, { backgroundColor: backgroundColor3 }]}
-            onPress={() => changeButton(3)}
-          >
-            <Text style={Styles.text}>Denied</Text>
-          </Pressable>
+    <View style={Styles.MainContainer}>
+      <ScrollView style={Styles.scroll_view}>
+        <View style={Styles.subContainer}>
+          <View style={Styles.buttonContainer}>
+            <Pressable
+              style={[Styles.buttons, { backgroundColor: backgroundColor1 }]}
+              onPress={() => changeButton(1)}
+            >
+              <Text style={Styles.text}>Queue</Text>
+            </Pressable>
+            <Pressable
+              style={[Styles.buttons, { backgroundColor: backgroundColor2 }]}
+              onPress={() => changeButton(2)}
+            >
+              <Text style={Styles.text}>Accepted</Text>
+            </Pressable>
+            <Pressable
+              style={[Styles.buttons, { backgroundColor: backgroundColor3 }]}
+              onPress={() => changeButton(3)}
+            >
+              <Text style={Styles.text}>Denied</Text>
+            </Pressable>
+          </View>
+
+          {/* Pendings */}
+          {value === 1 &&
+            data.map((item: any, index: any) => (
+              <View
+                style={Styles.notif_container}
+                key={item.schedule_id || index}
+              >
+                <View style={Styles.notif_data}>
+                  <Text style={Styles.host}>
+                    {item.fname} {item.lname}
+                  </Text>
+                  <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
+                  <Text style={Styles.purpose}>
+                    {item.visit_date} // {item.visit_time}
+                  </Text>
+
+                  <View style={Styles.info2}>
+                    <Pressable
+                      style={Styles.status_color1}
+                      onPress={() => accept(item.schedule_id)}
+                    >
+                      <Text style={Styles.text_color}>Accept</Text>
+                    </Pressable>
+                    <Pressable
+                      style={Styles.status_color2}
+                      onPress={() => deny(item.schedule_id)}
+                    >
+                      <Text style={Styles.text_color}>Deny</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            ))}
+
+          {/* Accepted */}
+          {value === 2 &&
+            acccepted.map((item: any, index: any) => (
+              <View
+                style={Styles.notif_container}
+                key={item.schedule_id || index}
+              >
+                <View style={Styles.notif_data}>
+                  <Text style={Styles.host}>
+                    {item.fname} {item.lname}
+                  </Text>
+                  <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
+                  <Text style={Styles.purpose}>
+                    {item.visit_date} // {item.visit_time}
+                  </Text>
+
+                  <View style={Styles.info2}>
+                    <Pressable
+                      style={[
+                        Styles.status_color1,
+                        { backgroundColor: "#008f7a" },
+                      ]}
+                      onPress={() => accept(item.schedule_id)}
+                    >
+                      <Text style={Styles.text_color}>Accepted</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            ))}
+
+          {/* Denied */}
+          {value === 3 &&
+            rejected.map((item: any, index: any) => (
+              <View
+                style={Styles.notif_container}
+                key={item.schedule_id || index}
+              >
+                <View style={Styles.notif_data}>
+                  <Text style={Styles.host}>
+                    {item.fname} {item.lname}
+                  </Text>
+                  <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
+                  <Text style={Styles.purpose}>
+                    {item.visit_date} // {item.visit_time}
+                  </Text>
+
+                  <View style={Styles.info2}>
+                    <Pressable
+                      style={[
+                        Styles.status_color2,
+                        { backgroundColor: "#b31105" },
+                      ]}
+                      onPress={() => deny(item.schedule_id)}
+                    >
+                      <Text style={Styles.text_color}>Denied</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            ))}
         </View>
-
-        {/* Pendings */}
-        {value === 1 &&
-          data.map((item: any, index: any) => (
-            <View
-              style={Styles.notif_container}
-              key={item.schedule_id || index}
-            >
-              <View style={Styles.notif_data}>
-                <Text style={Styles.host}>
-                  {item.fname} {item.lname}
-                </Text>
-                <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
-                <Text style={Styles.purpose}>
-                  {item.visit_date} // {item.visit_time}
-                </Text>
-
-                <View style={Styles.info2}>
-                  <Pressable
-                    style={Styles.status_color1}
-                    onPress={() => accept(item.schedule_id)}
-                  >
-                    <Text style={Styles.text_color}>Accept</Text>
-                  </Pressable>
-                  <Pressable
-                    style={Styles.status_color2}
-                    onPress={() => deny(item.schedule_id)}
-                  >
-                    <Text style={Styles.text_color}>Deny</Text>
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-          ))}
-
-        {/* Accepted */}
-        {value === 2 &&
-          acccepted.map((item: any, index: any) => (
-            <View
-              style={Styles.notif_container}
-              key={item.schedule_id || index}
-            >
-              <View style={Styles.notif_data}>
-                <Text style={Styles.host}>
-                  {item.fname} {item.lname}
-                </Text>
-                <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
-                <Text style={Styles.purpose}>
-                  {item.visit_date} // {item.visit_time}
-                </Text>
-
-                <View style={Styles.info2}>
-                  <Pressable
-                    style={[
-                      Styles.status_color1,
-                      { backgroundColor: "#008f7a" },
-                    ]}
-                    onPress={() => accept(item.schedule_id)}
-                  >
-                    <Text style={Styles.text_color}>Accepted</Text>
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-          ))}
-
-        {/* Denied */}
-        {value === 3 &&
-          rejected.map((item: any, index: any) => (
-            <View
-              style={Styles.notif_container}
-              key={item.schedule_id || index}
-            >
-              <View style={Styles.notif_data}>
-                <Text style={Styles.host}>
-                  {item.fname} {item.lname}
-                </Text>
-                <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
-                <Text style={Styles.purpose}>
-                  {item.visit_date} // {item.visit_time}
-                </Text>
-
-                <View style={Styles.info2}>
-                  <Pressable
-                    style={[
-                      Styles.status_color2,
-                      { backgroundColor: "#b31105" },
-                    ]}
-                    onPress={() => deny(item.schedule_id)}
-                  >
-                    <Text style={Styles.text_color}>Denied</Text>
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-          ))}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }

@@ -131,7 +131,6 @@ export default function Login() {
       }
     } catch (e) {
       failed_to_login();
-      console.error(e);
     }
   }
   return (

@@ -1,6 +1,16 @@
 import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 
 const Styles = StyleSheet.create({
+
+    scroll_view:{
+        width:'100%',
+        backgroundColor:'white'
+    },
+    subContainer:{
+        width:'100%',
+        paddingHorizontal:20,
+
+    },
     mainContainer:{
         flex:1,
         backgroundColor:"#fffdfa",
@@ -14,11 +24,12 @@ const Styles = StyleSheet.create({
   
     scheduleCard:{
         display:'flex',
+        
         backgroundColor:'white',
         borderWidth:1,
         borderColor:'#ebebeb',
         flexDirection:'row',
-        width:'90%',
+        width:'100%',
         marginTop:10,
         paddingHorizontal:15,
         paddingVertical:12,
