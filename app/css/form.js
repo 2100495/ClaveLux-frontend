@@ -1,6 +1,14 @@
 import { Image, StyleSheet, Platform, View, Text } from 'react-native';
 
 const Styles = StyleSheet.create({
+
+    scroll_view:{
+     
+        width:'100%',
+        display:'flex',
+        
+       
+    },
     inputText:{
         backgroundColor:'white'
     },
@@ -27,7 +35,8 @@ const Styles = StyleSheet.create({
         paddingBottom:20,
     },
     formContainer:{
-      width:'90%',
+      width:'100%',
+      paddingHorizontal:25,
       marginTop:20,
       gap:10,
     },

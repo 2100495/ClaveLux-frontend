@@ -2,8 +2,14 @@ import { StyleSheet, Image, Platform, View, Text} from 'react-native';
 
 const Styles = StyleSheet.create({
 
-    scrollview:{
-        backgroundColor:'#fffdfa'
+    scroll_view:{
+        width:'100%',
+        backgroundColor:'white'
+    },
+    subContainer:{
+        width:'100%',
+        paddingHorizontal:20,
+
     },
     mainContainer:{
         backgroundColor:"#fffdfa",
@@ -18,7 +24,7 @@ const Styles = StyleSheet.create({
     },
     notif_container:{
         borderWidth:1,
-        width:"93%",
+        width:"100%",
         paddingHorizontal:15,
         paddingVertical:10,
         borderColor:'#ebebeb',

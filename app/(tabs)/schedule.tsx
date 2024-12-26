@@ -53,24 +53,26 @@ export default function Schedule() {
     fetchData();
   }, [visitorID]);
   return (
-    <ScrollView style={{ height: "100%" }}>
-      <View style={Styles.mainContainer}>
-        {data.map((item: any, index: any) => (
-          <View key={index} style={Styles.scheduleCard}>
-            <View style={Styles.info2}>
-              <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
-              <Text style={Styles.email}>{item.email}</Text>
-              <Text style={Styles.email}>
-                {item.fname} {item.lname}
-              </Text>
+    <View style={Styles.mainContainer}>
+      <ScrollView style={Styles.scroll_view}>
+        <View style={Styles.subContainer}>
+          {data.map((item: any, index: any) => (
+            <View key={index} style={Styles.scheduleCard}>
+              <View style={Styles.info2}>
+                <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
+                <Text style={Styles.email}>{item.email}</Text>
+                <Text style={Styles.email}>
+                  {item.fname} {item.lname}
+                </Text>
+              </View>
+              <View style={Styles.info1}>
+                <Text style={Styles.hostname}>{item.visit_date}</Text>
+                <Text style={Styles.date_time}>{item.visit_time}</Text>
+              </View>
             </View>
-            <View style={Styles.info1}>
-              <Text style={Styles.hostname}>{item.visit_date}</Text>
-              <Text style={Styles.date_time}>{item.visit_time}</Text>
-            </View>
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }

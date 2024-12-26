@@ -38,47 +38,49 @@ export default function History() {
     fetchData();
   }, [visitorID]);
   return (
-    <ScrollView style={Styles.scrollview}>
-      <View style={Styles.mainContainer}>
-        {data.map((item: any, index: any) => {
-          // Set the background color based on status
-          let statusColor: string;
+    <View style={Styles.mainContainer}>
+      <ScrollView style={Styles.scroll_view}>
+        <View style={Styles.subContainer}>
+          {data.map((item: any, index: any) => {
+            // Set the background color based on status
+            let statusColor: string;
 
-          if (item.schedule_status === "Approved") {
-            statusColor = "#008f7a"; // Green for approved
-          } else if (item.schedule_status === "Denied") {
-            statusColor = "#b31105"; // Red for denied
-          } else if (item.schedule_status === "Pending") {
-            statusColor = "#005aad"; // Blue for pending
-          } else {
-            statusColor = "green"; // Default color for unknown statuses
-          }
+            if (item.schedule_status === "Approved") {
+              statusColor = "#008f7a"; // Green for approved
+            } else if (item.schedule_status === "Denied") {
+              statusColor = "#b31105"; // Red for denied
+            } else if (item.schedule_status === "Pending") {
+              statusColor = "#005aad"; // Blue for pending
+            } else {
+              statusColor = "green"; // Default color for unknown statuses
+            }
 
-          return (
-            <View key={index} style={Styles.notif_container}>
-              <View style={Styles.notif_data}>
-                <View style={Styles.info1}>
-                  <Text style={Styles.host}>{item.email}</Text>
-                  <Text style={Styles.purpose}>
-                    {item.fname} {item.lname}
-                  </Text>
-                  <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
-                  <Text style={Styles.purpose}>
-                    {item.visit_date} // {item.visit_time}
-                  </Text>
-                </View>
-                <View style={Styles.info2}>
-                  <Pressable
-                    style={[Styles.status, { backgroundColor: statusColor }]}
-                  >
-                    <Text style={Styles.denied}>{item.schedule_status}</Text>
-                  </Pressable>
+            return (
+              <View key={index} style={Styles.notif_container}>
+                <View style={Styles.notif_data}>
+                  <View style={Styles.info1}>
+                    <Text style={Styles.host}>{item.email}</Text>
+                    <Text style={Styles.purpose}>
+                      {item.fname} {item.lname}
+                    </Text>
+                    <Text style={Styles.purpose}>{item.visitor_purpose}</Text>
+                    <Text style={Styles.purpose}>
+                      {item.visit_date} // {item.visit_time}
+                    </Text>
+                  </View>
+                  <View style={Styles.info2}>
+                    <Pressable
+                      style={[Styles.status, { backgroundColor: statusColor }]}
+                    >
+                      <Text style={Styles.denied}>{item.schedule_status}</Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
-            </View>
-          );
-        })}
-      </View>
-    </ScrollView>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </View>
   );
 }

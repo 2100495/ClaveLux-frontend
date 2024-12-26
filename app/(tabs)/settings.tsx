@@ -1,11 +1,20 @@
-import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  Pressable,
+} from "react-native";
+
+import { useEffect, useState } from "react";
 import Styles from "../css/setting";
 import { Divider } from "react-native-paper";
 import { PaperProvider } from "react-native-paper";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import * as Updates from "expo-updates";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Settings() {
   interface Detail {
     option: string;
@@ -20,12 +29,29 @@ export default function Settings() {
     { option: "About", icon: "information-circle-outline" },
   ];
 
+  const [fname, setFname] = useState();
+  const [lname, setLname] = useState();
+  const [email, setEmail] = useState();
+  const getData = async () => {
+    const fname: any = await AsyncStorage.getItem("fname");
+    const lname: any = await AsyncStorage.getItem("lname");
+    const email: any = await AsyncStorage.getItem("email");
+
+    setFname(fname);
+    setLname(lname);
+    setEmail(email);
+  };
+
   const router = useRouter();
-  function logout() {
-    console.warn("ds");
-    router.push("/logout");
-    // Updates.reloadAsync();
-  }
+  const log_out = async () => {
+    const keys = ["lname", "fname", "email", "position_id"];
+    await AsyncStorage.multiRemove(keys);
+    router.push("/+not-found");
+  };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <PaperProvider>
@@ -37,15 +63,17 @@ export default function Settings() {
           />
 
           <View>
-            <Text style={Styles.fullname}>First Name Last Name</Text>
-            <Text style={Styles.email}>username@gmail.com</Text>
+            <Text style={Styles.fullname}>
+              {fname} {lname}
+            </Text>
+            <Text style={Styles.email}>{email}</Text>
           </View>
         </View>
         <View style={Styles.divider}></View>
 
         {/* Other Details */}
 
-        {details.map((items, index) => (
+        {details.map((items: any, index) => (
           <View key={index} style={Styles.other_details}>
             <Ionicons
               style={Styles.icon}
@@ -57,17 +85,15 @@ export default function Settings() {
           </View>
         ))}
 
-        <View style={Styles.other_details}>
+        <Pressable style={Styles.other_details} onPress={log_out}>
           <Ionicons
             style={Styles.icon}
             name="log-out-outline"
             size={20}
             color="#752738"
           />
-          <Text style={Styles.textOption} onPress={logout}>
-            Logout
-          </Text>
-        </View>
+          <Text style={Styles.textOption}>Logout</Text>
+        </Pressable>
       </View>
     </PaperProvider>
   );

@@ -1,6 +1,17 @@
 import { Image, StyleSheet, Platform, View, Text } from 'react-native';
 
 const Styles = StyleSheet.create({
+    scroll_view:{
+        width:'100%',
+        backgroundColor:'white',
+       
+    },
+    subContainer:{
+        width:'100%',
+        paddingHorizontal:20,
+     
+
+    },
     MainContainer:{
         width:'100%',
         display:'flex',
@@ -10,9 +21,10 @@ const Styles = StyleSheet.create({
         paddingBottom:20
     },
     notif_container:{
+     
         marginTop:20,
         borderWidth:1,
-        width:"93%",
+        width:"100%",
         paddingHorizontal:15,
         paddingVertical:20,
         borderColor:'#ebebeb',
@@ -82,7 +94,7 @@ const Styles = StyleSheet.create({
         fontSize:11,
     },
     buttonContainer:{
-        width:'90%',
+        width:'100%',
         flexDirection:'row',
         justifyContent:'center',
         gap:20,

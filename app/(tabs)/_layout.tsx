@@ -13,36 +13,38 @@ import { useRouter } from "expo-router";
 
 export default function TabLayout() {
   const router = useRouter();
+
+  const colorScheme = useColorScheme();
+  const [position, setPosition] = useState<string>("");
   useEffect(() => {
     const timer = setTimeout(() => {
       getPosition();
-    }, 1000); // 2000 ms = 2 seconds
+      checkPosition();
+    }, 1000);
 
-    // Cleanup the timeout if the component is unmounted or dependencies change
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [position]);
 
-  useEffect(() => {
-    // checkPosition();
-  }, []);
-
-  const colorScheme = useColorScheme();
-  const [position, setPosition] = useState("");
-  // const getPosition = async () => {
-  //   const position: any = await AsyncStorage.getItem("position_id");
-  //   setPosition(position);
-  // };
-
-  const checkPosition = async () => {
-    if (position !== "5") {
-      router.push("/(tabs)/host");
-    } else {
+  const checkPosition = () => {
+    if (position === "5") {
+      console.log("Host");
       router.push("/(tabs)");
+    } else if (position == "2") {
+      router.push("/(tabs)/host");
+      console.log("Form");
+    } else if (position == "3") {
+      router.push("/(tabs)/host");
+      console.log("Form");
+    } else if (position == "4") {
+      router.push("/(tabs)/host");
+      console.log("Form");
     }
   };
   const getPosition = async () => {
     try {
-      const position = await AsyncStorage.getItem("position_id");
+      const position: any = await AsyncStorage.getItem("position_id");
       if (position !== null) {
         setPosition(position); // Update state with the value from AsyncStorage
         console.log("position1", position);

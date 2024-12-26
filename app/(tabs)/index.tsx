@@ -38,6 +38,7 @@ import axios from "axios";
 export default function Form() {
   // Get user Data
   const [visitor_id, setvisitor_id] = useState<number | null>(null);
+
   const get_visitor_id = async () => {
     const visitor_id: any = await AsyncStorage.getItem("visitor_id");
     setvisitor_id(visitor_id);
@@ -177,8 +178,9 @@ export default function Form() {
   return (
     <PaperProvider>
       {/* Modal */}
-      <ScrollView>
-        <View style={Styles.mainContainer}>
+
+      <View style={Styles.mainContainer}>
+        <ScrollView style={Styles.scroll_view}>
           <View style={Styles.formContainer}>
             <Text style={Styles.headers}>Visitor's Info</Text>
 
@@ -213,13 +215,13 @@ export default function Form() {
             </HelperText>
 
             {/* <TextInput
-              label="Point of Contact Status"
-              mode="outlined"
-              outlineColor="#d1d1d1"
-              value={hostStatus}
-              onChangeText={(hostStatus) => sethostStatus(hostStatus)}
-              style={Styles.inputText}
-            /> */}
+                label="Point of Contact Status"
+                mode="outlined"
+                outlineColor="#d1d1d1"
+                value={hostStatus}
+                onChangeText={(hostStatus) => sethostStatus(hostStatus)}
+                style={Styles.inputText}
+              /> */}
             <Text style={Styles.headers}>Point of Contact Status</Text>
             <Picker
               selectedValue={position_id}
@@ -283,8 +285,8 @@ export default function Form() {
               <Text style={Styles.submit}>Submit</Text>
             </Pressable>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </PaperProvider>
   );
 }
